@@ -1,0 +1,101 @@
+* {
+	font-family: "Poppins", sans-serif;
+}
+
+.container:before {
+	content: "";
+	position: absolute;
+	height: 2000px;
+	width: 2000px;
+	top: -10%;
+	right: 48%;
+	transform: translateY(-50%);
+	background-image: linear-gradient(-45deg, #4481eb 0%, #04befe 100%);
+	transition: 1.8s ease-in-out;
+	border-radius: 50%;
+	z-index: 6;
+}
+
+.form-container {
+	position: absolute;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	left: 75%;
+	width: 35%;
+	transition: 1s 0.7s ease-in-out;
+	display: grid;
+	grid-template-columns: 1fr;
+	z-index: 5;
+}
+
+.input-group {
+	position: relative;
+}
+
+.icon {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	left: 1.5rem;
+}
+
+.form-control {
+	padding: 1rem;
+	padding-left: 3rem;
+}
+
+.social_icons {
+	width: 3rem;
+	height: 3rem;
+	border: 1px solid black;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+}
+
+.social_icons:hover {
+	background-color: #e3e3e3;
+}
+
+.socials {
+	display: flex;
+	justify-content: center;
+	gap: 0.8rem;
+}
+
+.panel-container {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+}
+
+.left-panel {
+	pointer-events: all;
+	padding: 3rem 17% 2rem 12%;
+}
+
+.panel {
+	margin-top: 7rem;
+	color: #fff;
+	text-align: center;
+	z-index: 6;
+}
+
+.signup-btn {
+	color: #fff;
+	border: 2px solid #fff;
+	background-color: transparent;
+	padding: 0.5rem 2rem;
+	border-radius: 50px;
+	cursor: pointer;
+}
+
+.signup-btn:hover {
+	background-color: #2b6fe6;
+}
