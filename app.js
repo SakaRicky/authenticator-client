@@ -13,7 +13,8 @@ document.getElementById("google").addEventListener("click", function () {
 		timer = setInterval(() => {
 			if (newWindow.closed) {
 				console.log("You are authenticated");
-				window.location.href = "http://127.0.0.1:5500/welcome.html";
+				window.location.href =
+					"https://shiny-taiyaki-3a8f01.netlify.app/welcome.html";
 				if (timer) clearInterval(timer);
 			}
 		}, 500);
