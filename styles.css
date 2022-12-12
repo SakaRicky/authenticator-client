@@ -44,7 +44,25 @@
 	padding-left: 3rem;
 }
 
+.socials {
+	display: flex;
+	justify-content: center;
+	gap: 0.8rem;
+}
+
 .social_icons {
+	position: relative;
+}
+
+.hidden {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	opacity: 0;
+}
+
+.social_icon {
 	width: 3rem;
 	height: 3rem;
 	border: 1px solid black;
@@ -55,15 +73,9 @@
 	cursor: pointer;
 }
 
-.social_icons:hover {
+/* .social_icon:hover {
 	background-color: #e3e3e3;
-}
-
-.socials {
-	display: flex;
-	justify-content: center;
-	gap: 0.8rem;
-}
+} */
 
 .panel-container {
 	position: absolute;

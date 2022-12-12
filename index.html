@@ -31,6 +31,7 @@
 		/>
 
 		<link rel="stylesheet" href="styles.css" />
+		<script src="https://accounts.google.com/gsi/client"></script>
 		<title>Authenticator</title>
 	</head>
 	<body>
@@ -75,27 +76,30 @@
 					</div>
 					<p class="mt-3 text-center">Or Sign in with social platforms</p>
 					<div class="mt-4 socials">
+						<div class="social_icons">
+							<i
+								class="fa fa-google social_icon"
+								id="google"
+								aria-hidden="true"
+							></i>
+							<div id="google-sign-in-button" class="hidden"></div>
+						</div>
 						<i
-							class="fa fa-google social_icons"
-							id="google"
-							aria-hidden="true"
-						></i>
-						<i
-							class="fa fa-facebook social_icons"
+							class="fa fa-facebook social_icon"
 							id="facebook"
 							aria-hidden="true"
 						></i>
 						<i
-							class="fa fa-github social_icons"
+							class="fa fa-github social_icon"
 							id="github"
 							aria-hidden="true"
 						></i>
 						<i
-							class="fa fa-linkedin social_icons"
+							class="fa fa-linkedin social_icon"
 							id="linkedin"
 							aria-hidden="true"
 						></i>
-						<i class="fa fa-apple social_icons" id="" aria-hidden="true"></i>
+						<i class="fa fa-apple social_icon" id="" aria-hidden="true"></i>
 					</div>
 				</form>
 			</div>
