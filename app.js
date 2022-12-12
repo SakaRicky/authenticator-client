@@ -77,3 +77,44 @@ document
 			}, 500);
 		}
 	});
+
+document
+	.getElementById("linkedin-sso-button")
+	.addEventListener("click", function () {
+		console.log("clicked linkedin");
+		const authWindow = window.open(
+			"http://localhost:3001/login/linkedin",
+			"_blank",
+			"width=500,height=700"
+		);
+		let timer;
+		localStorage.removeItem("loggedInUser");
+		const fetchAuthUser = () => {
+			axios
+				.get("http://localhost:3001/getuser", {
+					withCredentials: true,
+				})
+				.then(res => {
+					console.log("res.data: ", res.data);
+					localStorage.setItem(
+						"loggedInUser",
+						JSON.stringify({
+							name: res.data.displayName,
+							email: res.data.profileUrl,
+							picture: res.data.photos[0].value,
+						})
+					);
+					window.location = "/welcome.html";
+				});
+		};
+
+		if (authWindow) {
+			timer = setInterval(() => {
+				if (authWindow.closed) {
+					console.log("Yay we're authenticated");
+					fetchAuthUser();
+					if (timer) clearInterval(timer);
+				}
+			}, 500);
+		}
+	});
