@@ -1,45 +1,79 @@
-// Initialize the Google Sign-In client
-const GoogleAuth = google.accounts.id.initialize({
-	client_id:
-		"42205347235-q5sa3rrif9gcebdnp3lihv1lenei8uno.apps.googleusercontent.com",
-	callback: handleCredentialResponse,
+document.getElementById("google").addEventListener("click", function () {
+	console.log("clicked");
+	const authWindow = window.open(
+		"http://localhost:3001/login/google",
+		"_blank",
+		"width=500,height=700"
+	);
+	let timer;
+	localStorage.removeItem("loggedInUser");
+	const fetchAuthUser = () => {
+		axios
+			.get("http://localhost:3001/getuser", {
+				withCredentials: true,
+			})
+			.then(res => {
+				console.log("res.data: ", res.data);
+				localStorage.setItem(
+					"loggedInUser",
+					JSON.stringify({
+						name: res.data.displayName,
+						email: res.data.emails[0].value,
+						picture: res.data.photos[0].value,
+					})
+				);
+				console.log(localStorage);
+				window.location = "/welcome.html";
+			});
+	};
+
+	if (authWindow) {
+		timer = setInterval(() => {
+			if (authWindow.closed) {
+				console.log("Yay we're authenticated");
+				fetchAuthUser();
+				if (timer) clearInterval(timer);
+			}
+		}, 500);
+	}
 });
 
-function parseJwt(token) {
-	var base64Url = token.split(".")[1];
-	var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-	var jsonPayload = decodeURIComponent(
-		atob(base64)
-			.split("")
-			.map(function (c) {
-				return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
-			})
-			.join("")
-	);
+document
+	.getElementById("github-sso-button")
+	.addEventListener("click", function () {
+		console.log("clicked github");
+		const authWindow = window.open(
+			"http://localhost:3001/login/github",
+			"_blank",
+			"width=500,height=700"
+		);
+		let timer;
+		localStorage.removeItem("loggedInUser");
+		const fetchAuthUser = () => {
+			axios
+				.get("http://localhost:3001/getuser", {
+					withCredentials: true,
+				})
+				.then(res => {
+					localStorage.setItem(
+						"loggedInUser",
+						JSON.stringify({
+							name: res.data.displayName,
+							email: res.data.profileUrl,
+							picture: res.data.photos[0].value,
+						})
+					);
+					window.location = "/welcome.html";
+				});
+		};
 
-	return JSON.parse(jsonPayload);
-}
-
-function handleCredentialResponse(response) {
-	const user = parseJwt(response.credential);
-	console.log("user: ", user);
-
-	// Store the data in sessionStorage
-	localStorage.setItem("loggedInUser", JSON.stringify(user));
-
-	// const redirectURL = location.hostname === "localhost" ?
-
-	window.location.href = "/success.html";
-}
-
-// Set up the Google Sign-In button
-const signInButton = google.accounts.id.renderButton(
-	document.getElementById("google-sign-in-button"),
-	{
-		theme: "outline",
-		size: "large",
-		type: "icon",
-		shape: "pill",
-		width: "3rem",
-	}
-);
+		if (authWindow) {
+			timer = setInterval(() => {
+				if (authWindow.closed) {
+					console.log("Yay we're authenticated");
+					fetchAuthUser();
+					if (timer) clearInterval(timer);
+				}
+			}, 500);
+		}
+	});
