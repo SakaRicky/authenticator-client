@@ -14,16 +14,16 @@ document.getElementById("google").addEventListener("click", function () {
 			})
 			.then(res => {
 				console.log("res.data: ", res);
-				// localStorage.setItem(
-				// 	"loggedInUser",
-				// 	JSON.stringify({
-				// 		name: res.data.displayName,
-				// 		email: res.data.emails[0].value,
-				// 		picture: res.data.photos[0].value,
-				// 	})
-				// );
-				// console.log(localStorage);
-				// window.location = "/welcome.html";
+				localStorage.setItem(
+					"loggedInUser",
+					JSON.stringify({
+						name: res.data.displayName,
+						email: res.data.emails[0].value,
+						picture: res.data.photos[0].value,
+					})
+				);
+				console.log(localStorage);
+				window.location = "/welcome.html";
 			});
 	};
 
