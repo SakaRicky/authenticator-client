@@ -1,7 +1,7 @@
 document.getElementById("google").addEventListener("click", function () {
 	console.log("clicked");
 	const authWindow = window.open(
-		"http://localhost:3001/login/google",
+		"https://authenticator-ricky.onrender.com/login/google",
 		"_blank",
 		"width=500,height=700"
 	);
@@ -9,7 +9,7 @@ document.getElementById("google").addEventListener("click", function () {
 	localStorage.removeItem("loggedInUser");
 	const fetchAuthUser = () => {
 		axios
-			.get("http://localhost:3001/getuser", {
+			.get("https://authenticator-ricky.onrender.com/getuser", {
 				withCredentials: true,
 			})
 			.then(res => {
@@ -43,7 +43,7 @@ document
 	.addEventListener("click", function () {
 		console.log("clicked github");
 		const authWindow = window.open(
-			"http://localhost:3001/login/github",
+			"https://authenticator-ricky.onrender.com/login/github",
 			"_blank",
 			"width=500,height=700"
 		);
@@ -51,7 +51,7 @@ document
 		localStorage.removeItem("loggedInUser");
 		const fetchAuthUser = () => {
 			axios
-				.get("http://localhost:3001/getuser", {
+				.get("https://authenticator-ricky.onrender.com/getuser", {
 					withCredentials: true,
 				})
 				.then(res => {
@@ -83,7 +83,7 @@ document
 	.addEventListener("click", function () {
 		console.log("clicked linkedin");
 		const authWindow = window.open(
-			"http://localhost:3001/login/linkedin",
+			"https://authenticator-ricky.onrender.com/login/linkedin",
 			"_blank",
 			"width=500,height=700"
 		);
@@ -91,7 +91,7 @@ document
 		localStorage.removeItem("loggedInUser");
 		const fetchAuthUser = () => {
 			axios
-				.get("http://localhost:3001/getuser", {
+				.get("https://authenticator-ricky.onrender.com/getuser", {
 					withCredentials: true,
 				})
 				.then(res => {
