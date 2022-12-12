@@ -13,7 +13,7 @@ document.getElementById("google").addEventListener("click", function () {
 				withCredentials: true,
 			})
 			.then(res => {
-				console.log("res.data: ", res.data);
+				console.log("res.data: ", res);
 				// localStorage.setItem(
 				// 	"loggedInUser",
 				// 	JSON.stringify({
