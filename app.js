@@ -1,50 +1,52 @@
-const ENV = "prod";
+const ENV = "dev";
 const getUserURL =
 	ENV === "dev"
 		? "http://localhost:3001/getuser"
 		: "https://authenticator-ricky.onrender.com/getuser";
 
-document.getElementById("google").addEventListener("click", function () {
-	console.log("clicked Google");
-	const googleURL =
-		ENV === "dev"
-			? "http://localhost:3001/login/google"
-			: "https://authenticator-ricky.onrender.com/login/google";
-	const authWindow = window.open(googleURL, "_blank", "width=500,height=700");
-	let timer;
-	localStorage.removeItem("loggedInUser");
+document
+	.getElementById("google-sso-button")
+	.addEventListener("click", function () {
+		console.log("clicked Google");
+		const googleURL =
+			ENV === "dev"
+				? "http://localhost:3001/login/google"
+				: "https://authenticator-ricky.onrender.com/login/google";
+		const authWindow = window.open(googleURL, "_blank", "width=500,height=700");
+		let timer;
+		localStorage.removeItem("loggedInUser");
 
-	const fetchAuthUser = () => {
-		axios
-			.get(getUserURL, {
-				withCredentials: true,
-			})
-			.then(res => {
-				console.log("res.data google: ", res);
-				localStorage.setItem(
-					"loggedInUser",
-					JSON.stringify({
-						name: res.data.displayName,
-						email: res.data.emails[0].value,
-						picture: res.data.photos[0].value,
-						provider: res.data.provider,
-					})
-				);
-				console.log(localStorage);
-				window.location = "/welcome.html";
-			});
-	};
+		const fetchAuthUser = () => {
+			axios
+				.get(getUserURL, {
+					withCredentials: true,
+				})
+				.then(res => {
+					console.log("res.data google: ", res);
+					localStorage.setItem(
+						"loggedInUser",
+						JSON.stringify({
+							name: res.data.displayName,
+							email: res.data.emails[0].value,
+							picture: res.data.photos[0].value,
+							provider: res.data.provider,
+						})
+					);
+					console.log(localStorage);
+					window.location = "/welcome.html";
+				});
+		};
 
-	if (authWindow) {
-		timer = setInterval(() => {
-			if (authWindow.closed) {
-				console.log("Yay we're authenticated");
-				fetchAuthUser();
-				if (timer) clearInterval(timer);
-			}
-		}, 500);
-	}
-});
+		if (authWindow) {
+			timer = setInterval(() => {
+				if (authWindow.closed) {
+					console.log("Yay we're authenticated");
+					fetchAuthUser();
+					if (timer) clearInterval(timer);
+				}
+			}, 500);
+		}
+	});
 
 const githubURL =
 	ENV === "dev"
