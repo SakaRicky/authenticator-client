@@ -1,5 +1,7 @@
 document.getElementById("google").addEventListener("click", function () {
 	console.log("clicked");
+	//https://authenticator-ricky.onrender.com/login/google
+	//http://localhost:3001/login/google
 	const authWindow = window.open(
 		"https://authenticator-ricky.onrender.com/login/google",
 		"_blank",
@@ -7,6 +9,8 @@ document.getElementById("google").addEventListener("click", function () {
 	);
 	let timer;
 	localStorage.removeItem("loggedInUser");
+	//https://authenticator-ricky.onrender.com/getuser
+	//http://localhost:3001/getuser
 	const fetchAuthUser = () => {
 		axios
 			.get("https://authenticator-ricky.onrender.com/getuser", {
@@ -38,6 +42,8 @@ document.getElementById("google").addEventListener("click", function () {
 	}
 });
 
+//https://authenticator-ricky.onrender.com/login/github
+//http://localhost:3001/login/github
 document
 	.getElementById("github-sso-button")
 	.addEventListener("click", function () {
@@ -49,6 +55,8 @@ document
 		);
 		let timer;
 		localStorage.removeItem("loggedInUser");
+		//https://authenticator-ricky.onrender.com/getuser
+		//http://localhost:3001/getuser
 		const fetchAuthUser = () => {
 			axios
 				.get("https://authenticator-ricky.onrender.com/getuser", {
@@ -78,6 +86,8 @@ document
 		}
 	});
 
+//https://authenticator-ricky.onrender.com/login/linkedin
+//http://localhost:3001/login/linkedin
 document
 	.getElementById("linkedin-sso-button")
 	.addEventListener("click", function () {
@@ -89,6 +99,8 @@ document
 		);
 		let timer;
 		localStorage.removeItem("loggedInUser");
+		//https://authenticator-ricky.onrender.com/getuser
+		//http://localhost:3001/getuser
 		const fetchAuthUser = () => {
 			axios
 				.get("https://authenticator-ricky.onrender.com/getuser", {
