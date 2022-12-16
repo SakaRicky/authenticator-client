@@ -29,6 +29,7 @@
 					<!-- Display the user's profile information -->
 					<h1>Name: <span id="name"></span></h1>
 					<h1>Email: <span id="email"></span></h1>
+					<h1>Provider: <span id="provider"></span></h1>
 				</div>
 			</div>
 		</div>
@@ -48,11 +49,14 @@
 			// Display the user's profile information on the page
 			document.getElementById("name").innerHTML = user.name;
 			document.getElementById("email").innerHTML = user.email;
+			document.getElementById("provider").innerHTML = user.provider;
 			// Get the img element
 			var img = document.getElementById("my-img");
 
-			// Set the src attribute of the img element
-			img.setAttribute("src", user.picture);
+			if (user.picture) {
+				// Set the src attribute of the img element
+				img.setAttribute("src", user.picture);
+			}
 		</script>
 	</body>
 </html>

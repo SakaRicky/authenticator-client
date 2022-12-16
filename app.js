@@ -1,29 +1,33 @@
+const ENV = "dev";
+const getUserURL =
+	ENV === "dev"
+		? "http://localhost:3001/getuser"
+		: "https://authenticator-ricky.onrender.com/getuser";
+
 document.getElementById("google").addEventListener("click", function () {
-	console.log("clicked");
-	//https://authenticator-ricky.onrender.com/login/google
-	//http://localhost:3001/login/google
-	const authWindow = window.open(
-		"https://authenticator-ricky.onrender.com/login/google",
-		"_blank",
-		"width=500,height=700"
-	);
+	console.log("clicked Google");
+	const googleURL =
+		ENV === "dev"
+			? "http://localhost:3001/login/google"
+			: "https://authenticator-ricky.onrender.com/login/google";
+	const authWindow = window.open(googleURL, "_blank", "width=500,height=700");
 	let timer;
 	localStorage.removeItem("loggedInUser");
-	//https://authenticator-ricky.onrender.com/getuser
-	//http://localhost:3001/getuser
+
 	const fetchAuthUser = () => {
 		axios
-			.get("https://authenticator-ricky.onrender.com/getuser", {
+			.get(getUserURL, {
 				withCredentials: true,
 			})
 			.then(res => {
-				console.log("res.data: ", res);
+				console.log("res.data google: ", res);
 				localStorage.setItem(
 					"loggedInUser",
 					JSON.stringify({
 						name: res.data.displayName,
 						email: res.data.emails[0].value,
 						picture: res.data.photos[0].value,
+						provider: res.data.provider,
 					})
 				);
 				console.log(localStorage);
@@ -42,24 +46,21 @@ document.getElementById("google").addEventListener("click", function () {
 	}
 });
 
-//https://authenticator-ricky.onrender.com/login/github
-//http://localhost:3001/login/github
+const githubURL =
+	ENV === "dev"
+		? "http://localhost:3001/login/github"
+		: "https://authenticator-ricky.onrender.com/login/github";
 document
 	.getElementById("github-sso-button")
 	.addEventListener("click", function () {
 		console.log("clicked github");
-		const authWindow = window.open(
-			"https://authenticator-ricky.onrender.com/login/github",
-			"_blank",
-			"width=500,height=700"
-		);
+		const authWindow = window.open(githubURL, "_blank", "width=500,height=700");
 		let timer;
 		localStorage.removeItem("loggedInUser");
-		//https://authenticator-ricky.onrender.com/getuser
-		//http://localhost:3001/getuser
+
 		const fetchAuthUser = () => {
 			axios
-				.get("https://authenticator-ricky.onrender.com/getuser", {
+				.get(getUserURL, {
 					withCredentials: true,
 				})
 				.then(res => {
@@ -69,6 +70,7 @@ document
 							name: res.data.displayName,
 							email: res.data.profileUrl,
 							picture: res.data.photos[0].value,
+							provider: res.data.provider,
 						})
 					);
 					window.location = "/welcome.html";
@@ -86,24 +88,25 @@ document
 		}
 	});
 
-//https://authenticator-ricky.onrender.com/login/linkedin
-//http://localhost:3001/login/linkedin
+const linkedInURL =
+	ENV === "dev"
+		? "http://localhost:3001/login/linkedin"
+		: "https://authenticator-ricky.onrender.com/login/linkedin";
+
 document
 	.getElementById("linkedin-sso-button")
 	.addEventListener("click", function () {
 		console.log("clicked linkedin");
 		const authWindow = window.open(
-			"https://authenticator-ricky.onrender.com/login/linkedin",
+			linkedInURL,
 			"_blank",
 			"width=500,height=700"
 		);
 		let timer;
 		localStorage.removeItem("loggedInUser");
-		//https://authenticator-ricky.onrender.com/getuser
-		//http://localhost:3001/getuser
 		const fetchAuthUser = () => {
 			axios
-				.get("https://authenticator-ricky.onrender.com/getuser", {
+				.get(getUserURL, {
 					withCredentials: true,
 				})
 				.then(res => {
@@ -114,6 +117,52 @@ document
 							name: res.data.displayName,
 							email: res.data.profileUrl,
 							picture: res.data.photos[0].value,
+							provider: res.data.provider,
+						})
+					);
+					window.location = "/welcome.html";
+				});
+		};
+
+		if (authWindow) {
+			timer = setInterval(() => {
+				if (authWindow.closed) {
+					console.log("Yay we're authenticated");
+					fetchAuthUser();
+					if (timer) clearInterval(timer);
+				}
+			}, 500);
+		}
+	});
+
+document
+	.getElementById("facebook-sso-button")
+	.addEventListener("click", function () {
+		console.log("clicked facebook");
+		const facebookURL =
+			ENV === "dev"
+				? "http://localhost:3001/login/facebook"
+				: "https://authenticator-ricky.onrender.com/login/facebook";
+		const authWindow = window.open(
+			facebookURL,
+			"_blank",
+			"width=500,height=700"
+		);
+		let timer;
+		localStorage.removeItem("loggedInUser");
+		const fetchAuthUser = () => {
+			axios
+				.get(getUserURL, {
+					withCredentials: true,
+				})
+				.then(res => {
+					console.log("res.data: ", res.data);
+					localStorage.setItem(
+						"loggedInUser",
+						JSON.stringify({
+							name: res.data.displayName,
+							email: res.data.profileUrl,
+							provider: res.data.provider,
 						})
 					);
 					window.location = "/welcome.html";
