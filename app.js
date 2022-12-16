@@ -1,4 +1,4 @@
-const ENV = "dev";
+const ENV = "prod";
 const getUserURL =
 	ENV === "dev"
 		? "http://localhost:3001/getuser"
